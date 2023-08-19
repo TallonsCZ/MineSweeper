@@ -308,7 +308,7 @@ void game::play(){
 			while (playBool == true) {
 				std::cin >> help;
 				if (std::cin.fail()) {
-					system("cls");
+					//system("cls");
 					std::cin.clear();
 					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					std::cout << "Bad choose please repeat.. \n";
@@ -320,7 +320,7 @@ void game::play(){
 
 				else if(help > size || help < 0)
 				{
-					system("cls");
+					//system("cls");
 					std::cin.clear();
 					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					std::cout << "Bad choose (out of border) please repeat.. \n";
@@ -328,9 +328,9 @@ void game::play(){
 				else
 				{
 					playBool = false;
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				}
-				std::cin.clear();
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			}
 			std::cout << " , ";
 			args[helpR] = help;
