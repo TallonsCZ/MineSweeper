@@ -352,7 +352,7 @@ void game::play(){
 					return;
 				}
 
-				else if(help > size || help < 0)
+				else if(help > size || help <= 0)
 				{
 					//system("cls");
 					std::cin.clear();

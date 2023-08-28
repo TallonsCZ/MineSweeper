@@ -98,7 +98,7 @@ public:
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				std::cout << "Bad choose please repeat.. \n";
 			}
-			else if (number < 0 || number > size*size-1){
+			else if (number <= 0 || number > size*size-1){
 				help = true;
 				system("cls");
 				std::cout << "Number must be bigger than 0 or smaller than " << size*size-1 << "\n";
@@ -126,7 +126,7 @@ public:
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				std::cout << "Bad choose please repeat.. \n";
 			}
-			else if (number < 0 || number > 19) {
+			else if (number <= 0 || number > 19) {
 				help = true;
 				system("cls");
 				std::cout << "Number must be bigger than 0 or smaller than 20 \n";
