@@ -224,6 +224,36 @@ void game::end() {
 		
 }
 
+void game::endWin() {
+	system("cls");
+	print();
+	delete userGameplace;
+	delete gamePlace;
+	endBool = true;
+	bool next = false;
+	while (next == false) {
+		std::cout << "You Win, Want to play again? (Y/N) ";
+		char choose;
+		std::cin >> choose;
+		if (choose == 'Y') {
+			next = true;
+			return;
+		}
+		else if (choose == 'N') {
+			startgame = false;
+			next = true;
+			return;
+		}
+		else {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Bad choose please repeat.. \n";
+		}
+	}
+
+
+}
+
 
 void game::options() {
 	bool badChoose = true;
@@ -260,38 +290,42 @@ void game::options() {
 }
 
 void game::welcome() {
-	std::cout << "Welcome in my game MineSweeper. \n \n 1. Start Game \n 2. Options \n 3. Help \n 4. End Game\n Your choose: ";
-	int choose = 0; 
-	std::cin >> choose;
-	if (std::cin.fail()) {
-		system("cls");
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "Bad choose please repeat.. \n";
+	while (this->endBool == false) {
+		std::cout << "Welcome in my game MineSweeper. \n \n 1. Start Game \n 2. Options \n 3. Help \n 4. End Game\n Your choose: ";
+		int choose = 0;
+		std::cin >> choose;
+		if (std::cin.fail()) {
+			system("cls");
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Bad choose please repeat.. \n";
+		}
+		else if (choose == 1) {
+			system("cls");
+			create();
+			fillGamePlace();
+			createUserGamePlace();
+			play();
+		}
+		else if (choose == 2) {
+			system("cls");
+			options();
+		}
+		else if (choose == 3) {
+			system("cls");
+			std::cout << "Help: \n This is a standard Minesweeper game where the goal is to find all the squares that do not have mines. \n";
+			std::cout << " Explanations: \n H: Hidden \n 0: No mine nearby \n 1-8: Number of mines nearby \n 9: Mines \n \n If you choose mines, game over \n \n \n";
+		}
+		else if (choose == 4) {
+			startgame = false;
+			return;
+		}
+		else {
+			system("cls");
+			std::cout << "Bad choose please repeat.. \n";
+		}
 	}
-	else if(choose == 1) {
-		system("cls");
-		create();
-		fillGamePlace();
-		createUserGamePlace();
-		play();
-	}
-	else if (choose == 2) {
-		system("cls");
-		options();
-	}else if (choose == 3) {
-		system("cls");
-		std::cout << "Help: \n This is a standard Minesweeper game where the goal is to find all the squares that do not have mines. \n";
-		std::cout << " Explanations: \n H: Hidden \n 0: No mine nearby \n 1-8: Number of mines nearby \n 9: Mines \n \n If you choose mines, game over \n \n \n";
-	}
-	else if (choose == 4) {
-		startgame = false;
-		return;
-	}
-	else {
-		system("cls");
-		std::cout << "Bad choose please repeat.. \n";
-	}
+
 
 }
 
@@ -337,5 +371,37 @@ void game::play(){
 
 		}
 		select(args[1], args[2]);
+		if (endBool == false) {
+			bool test = isComplete();
+			if (test == true) {
+				endWin();
+			}
+		}
+	}
+}
+
+bool game::isComplete() {
+	int b = 0;
+	for (int i = 0; i < size; i++) {
+		for (int y = 0; y < size; y++) {
+			if (userGameplace->getValue(i, y) == 'H') {
+				if (gamePlace->getValue(i, y) == 9) {
+					continue;
+				}
+				else {
+					b++;
+				}
+			}
+		}
+
+		
+	}
+	if (b == 0) {
+		system("cls");
+		std::cout << "You win this game!! \n ";
+		return true;
+	}
+	else {
+		return false;
 	}
 }

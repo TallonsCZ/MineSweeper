@@ -73,6 +73,7 @@ public:
 	void create();
 	void select(int first, int second);
 	void print();
+	void endWin();
 	bool random();
 	void play();
 	void welcome();
@@ -82,7 +83,7 @@ public:
 	void fillGamePlace();
 	void placeMine(int xv, int yv);
 	void options();
-
+	bool isComplete();
 
 	void setNumberMines(){
 		int number;
@@ -137,6 +138,10 @@ public:
 		size = number;
 		system("cls");
 		std::cout << "Size of Gameplace has been change to " << number << std::endl;
+		delete gamePlace;
+		delete userGameplace;
+		gamePlace = new Board(size);
+		userGameplace = new BoardChar(size);
 		return;
 	}
 
